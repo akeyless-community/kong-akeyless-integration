@@ -24,4 +24,5 @@ akeyless create-secret \
   --value "$AKEYLESS_DEMO_SECRET_VALUE" \
   --type static
 
-echo "OK: demo secret ready for vault reference {vault://akeyless-vault/demo/api-key}"
+echo "OK: demo secret ready at $AKEYLESS_DEMO_SECRET_PATH"
+echo "    Run: make test-api"

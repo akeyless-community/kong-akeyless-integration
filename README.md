@@ -46,6 +46,8 @@ Native [Kong Gateway](https://konghq.com) Secrets Management integration for [Ak
 - [decK](https://developer.konghq.com/deck/) (optional)
 - Docker (for local demo)
 
+See [docs/troubleshooting.md](docs/troubleshooting.md) if `make validate` fails.
+
 ### 2. Create a demo secret in Akeyless
 
 ```bash
