@@ -2,14 +2,13 @@
 
 Everything the agent prepared is in `kong-akeyless-integration/`. These steps require **you** (Akeyless team) — credentials, GitHub org access, and Kong partner outreach.
 
-## Phase 1 — Publish the repo (today)
+## Phase 1 — Publish the repo ✅
 
-- [ ] **Create public repo** `github.com/akeyless-community/kong-akeyless-integration`
-- [ ] **Push this folder** as the initial commit (see [publish-to-github.md](publish-to-github.md))
-- [ ] Set repo description: `Native Kong Gateway Enterprise vault backend for Akeyless Secrets Management`
-- [ ] Add topics: `kong`, `kong-gateway`, `akeyless`, `secrets-management`, `vault`
-- [ ] Tag release: `git tag v0.1.0 && git push origin v0.1.0`
-- [ ] Enable GitHub Issues (for Kong engineering questions)
+- [x] **Create public repo** `github.com/akeyless-community/kong-akeyless-integration`
+- [x] **Push initial commit** and tag `v0.1.0`
+- [x] Repo description and topics configured
+- [x] GitHub release [v0.1.0](https://github.com/akeyless-community/kong-akeyless-integration/releases/tag/v0.1.0)
+- [ ] Enable GitHub Issues (if not already on) for Kong engineering questions
 
 ## Phase 2 — Validate locally (before contacting Kong)
 

@@ -169,9 +169,9 @@ kong-akeyless-integration/
 
 ## Related projects
 
-- [Jenkins Akeyless Credentials Provider](../JenkinsSecretsManagerProvider)
-- [Buildkite Akeyless Plugin](../buildkite-akeyless-plugin)
-- [Octopus Deploy Akeyless Step Templates](../octopus-akeyless-plugin)
+- [Jenkins Akeyless Credentials Provider](https://github.com/akeyless-community/JenkinsSecretsManagerProvider)
+- [Buildkite Akeyless Plugin](https://github.com/akeyless-community/buildkite-akeyless-plugin)
+- [Octopus Deploy Akeyless Step Templates](https://github.com/akeyless-community/octopus-akeyless-plugin)
 
 ## License
 
