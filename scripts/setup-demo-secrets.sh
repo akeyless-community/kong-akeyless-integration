@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Create or update the demo secret in Akeyless (requires akeyless CLI).
+# Create or update the demo static secret in Akeyless (requires akeyless CLI).
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -10,19 +10,36 @@ if [[ -f "$ENV_FILE" ]]; then
   source "$ENV_FILE"
 fi
 
-: "${AKEYLESS_DEMO_SECRET_PATH:?Set AKEYLESS_DEMO_SECRET_PATH}"
-: "${AKEYLESS_DEMO_SECRET_VALUE:?Set AKEYLESS_DEMO_SECRET_VALUE}"
+: "${AKEYLESS_DEMO_SECRET_PATH:?Set AKEYLESS_DEMO_SECRET_PATH in examples/.env}"
+: "${AKEYLESS_DEMO_SECRET_VALUE:?Set AKEYLESS_DEMO_SECRET_VALUE in examples/.env}"
 
 if ! command -v akeyless >/dev/null 2>&1; then
   echo "Install the Akeyless CLI: https://docs.akeyless.io/docs/cli" >&2
   exit 1
 fi
 
-echo "==> Creating static secret $AKEYLESS_DEMO_SECRET_PATH"
-akeyless create-secret \
-  --name "$AKEYLESS_DEMO_SECRET_PATH" \
-  --value "$AKEYLESS_DEMO_SECRET_VALUE" \
-  --type static
+NAME="$AKEYLESS_DEMO_SECRET_PATH"
+VALUE="$AKEYLESS_DEMO_SECRET_VALUE"
 
-echo "OK: demo secret ready at $AKEYLESS_DEMO_SECRET_PATH"
+echo "==> Creating static secret $NAME"
+set +e
+CREATE_OUT="$(akeyless create-secret --name "$NAME" --value "$VALUE" 2>&1)"
+CREATE_RC=$?
+set -e
+
+if [[ "$CREATE_RC" -eq 0 ]]; then
+  echo "OK: created $NAME"
+elif echo "$CREATE_OUT" | grep -qiE 'already exist|duplicate|conflict'; then
+  echo "    Secret already exists — updating value"
+  akeyless update-secret-val --name "$NAME" --value "$VALUE"
+  echo "OK: updated $NAME"
+else
+  echo "$CREATE_OUT" >&2
+  echo "" >&2
+  echo "Failed to create $NAME" >&2
+  echo "Note: akeyless create-secret is for static secrets (type generic/password)." >&2
+  echo "      Do not pass --type static (invalid). If the path exists as another item type, pick a different path." >&2
+  exit 1
+fi
+
 echo "    Run: make test-api"

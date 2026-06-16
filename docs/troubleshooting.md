@@ -1,5 +1,21 @@
 # Troubleshooting `make validate`
 
+## `setup-demo-secrets.sh`: secret type static is not valid
+
+**Symptom:** `secret type of type static, is not valid`
+
+**Cause:** Older versions of this repo passed `--type static`. The Akeyless CLI expects `generic` (default) or `password`.
+
+**Fix:** `git pull` and re-run `./scripts/setup-demo-secrets.sh`, or create manually:
+
+```bash
+akeyless create-secret --name /demo/dotnet-integration --value 'your-secret-value'
+# or if it already exists:
+akeyless update-secret-val --name /demo/dotnet-integration --value 'your-secret-value'
+```
+
+---
+
 ## Step 1 failed: HTTP 404 on get-secret-value
 
 **Symptom:** `curl: (56) The requested URL returned error: 404` or `JSONDecodeError`
@@ -20,7 +36,7 @@
    ```bash
    ./scripts/setup-demo-secrets.sh
    ```
-   This creates `/kong/demo/api-key` (requires Akeyless CLI).
+   Uses `akeyless create-secret` (static secret, default type `generic`). Do **not** use `--type static` — that is invalid in current CLI versions.
 
 **Path alignment:** If your secret is `/demo/dotnet-integration`, set in `examples/.env`:
 
