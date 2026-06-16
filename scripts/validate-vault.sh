@@ -62,10 +62,10 @@ REFERENCE="{vault://${PREFIX}/${RESOURCE}}"
 
 echo "==> Step 2: Apply Vault entity with decK (if deck is installed)"
 if command -v deck >/dev/null 2>&1; then
-  export DECK_AKEYLESS_GATEWAY_URL="${AKEYLESS_GATEWAY_URL}"
-  export DECK_AKEYLESS_ACCESS_ID="${AKEYLESS_ACCESS_ID}"
-  export DECK_AKEYLESS_ACCESS_KEY="${AKEYLESS_ACCESS_KEY}"
-  export DECK_AKEYLESS_PATH_PREFIX="${AKEYLESS_PATH_PREFIX:-/kong}"
+  set -a
+  # shellcheck disable=SC1090
+  [[ -f "$ENV_FILE" ]] && source "$ENV_FILE"
+  set +a
   deck gateway apply "$ROOT/examples/kong.yaml" 2>/dev/null || true
 else
   echo "    deck not installed — create the Vault entity manually via Admin API"

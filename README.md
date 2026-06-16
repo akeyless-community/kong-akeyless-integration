@@ -75,10 +75,7 @@ docker compose -f examples/docker-compose.yml up -d
 ### 5. Apply Vault entity and validate
 
 ```bash
-export DECK_AKEYLESS_GATEWAY_URL=https://api.akeyless.io
-export DECK_AKEYLESS_ACCESS_ID=p-xxxxx
-export DECK_AKEYLESS_ACCESS_KEY=...
-
+set -a && source examples/.env && set +a
 deck gateway apply examples/kong.yaml
 
 docker compose -f examples/docker-compose.yml exec kong-gateway \

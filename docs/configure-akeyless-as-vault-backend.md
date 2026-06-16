@@ -39,13 +39,7 @@ deck version
 2. Create an Access ID + Access Key auth method scoped to your Kong secret paths.
 3. Store a demo secret, for example `/kong/demo/api-key`.
 
-Export credentials:
-
-```bash
-export DECK_AKEYLESS_GATEWAY_URL="https://api.akeyless.io"
-export DECK_AKEYLESS_ACCESS_ID="p-xxxxxxxx"
-export DECK_AKEYLESS_ACCESS_KEY="your-access-key"
-```
+Set credentials in `examples/.env` (or export the same `AKEYLESS_*` variables in your shell before running decK).
 
 ## Create a Vault entity for Akeyless
 
@@ -58,10 +52,10 @@ vaults:
     description: Storing secrets in Akeyless Secrets Manager
     prefix: akeyless-vault
     config:
-      gateway_url: "${{ env "DECK_AKEYLESS_GATEWAY_URL" }}"
+      gateway_url: "${{ env "AKEYLESS_GATEWAY_URL" }}"
       auth_method: api_key
-      access_id: "${{ env "DECK_AKEYLESS_ACCESS_ID" }}"
-      access_key: "${{ env "DECK_AKEYLESS_ACCESS_KEY" }}"
+      access_id: "${{ env "AKEYLESS_ACCESS_ID" }}"
+      access_key: "${{ env "AKEYLESS_ACCESS_KEY" }}"
       path_prefix: "/kong"
       ttl: 60
 ```

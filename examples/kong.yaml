@@ -5,11 +5,11 @@ vaults:
     prefix: akeyless-vault
     description: Storing secrets in Akeyless Secrets Manager
     config:
-      gateway_url: "${{ env "DECK_AKEYLESS_GATEWAY_URL" }}"
+      gateway_url: "${{ env "AKEYLESS_GATEWAY_URL" }}"
       auth_method: api_key
-      access_id: "${{ env "DECK_AKEYLESS_ACCESS_ID" }}"
-      access_key: "${{ env "DECK_AKEYLESS_ACCESS_KEY" }}"
-      path_prefix: "${{ env "DECK_AKEYLESS_PATH_PREFIX" }}"
+      access_id: "${{ env "AKEYLESS_ACCESS_ID" }}"
+      access_key: "${{ env "AKEYLESS_ACCESS_KEY" }}"
+      path_prefix: "${{ env "AKEYLESS_PATH_PREFIX" }}"
       ttl: 60
       neg_ttl: 10
       resurrect_ttl: 30
