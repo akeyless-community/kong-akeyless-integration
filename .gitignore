@@ -1,0 +1,5 @@
+examples/.env
+*.swp
+*.swo
+.DS_Store
+.luarocks/

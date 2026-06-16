@@ -1,0 +1,42 @@
+_format_version: "3.0"
+
+vaults:
+  - name: akeyless
+    prefix: akeyless-vault
+    description: Storing secrets in Akeyless Secrets Manager
+    config:
+      gateway_url: "${{ env "DECK_AKEYLESS_GATEWAY_URL" }}"
+      auth_method: api_key
+      access_id: "${{ env "DECK_AKEYLESS_ACCESS_ID" }}"
+      access_key: "${{ env "DECK_AKEYLESS_ACCESS_KEY" }}"
+      path_prefix: "/kong"
+      ttl: 60
+      neg_ttl: 10
+      resurrect_ttl: 30
+
+# Example: reference a static secret stored at /kong/customer/acme/api-key
+#   {vault://akeyless-vault/customer/acme/api-key}
+#
+# Example: JSON secret at /kong/pg with {"username":"john","password":"doe"}
+#   {vault://akeyless-vault/pg/username}
+#   {vault://akeyless-vault/pg/password}
+
+services:
+  - name: demo-upstream
+    url: https://httpbin.org
+    routes:
+      - name: demo-route
+        paths:
+          - /demo
+
+plugins:
+  - name: key-auth
+    service: demo-upstream
+    config:
+      key_names:
+        - apikey
+      # Store the API key in Akeyless at /kong/demo/api-key, then reference:
+      hide_credentials: true
+
+# Uncomment after creating the secret in Akeyless and configuring the vault:
+#      key: "{vault://akeyless-vault/demo/api-key}"
