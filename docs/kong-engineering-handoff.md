@@ -4,9 +4,7 @@ For Kong Gateway Enterprise engineers reviewing the Akeyless vault backend.
 
 ## Integration type
 
-**Native vault strategy** — not a Kong plugin, not Kong Hub.
-
-CyberArk Conjur (`name: conjur`, Kong 3.11+) is the closest reference.
+**Native vault strategy** — not a Kong plugin, not Kong Hub. See [Kong Vaults](https://developer.konghq.com/gateway/entities/vault/) for how native vault backends are structured.
 
 ## Module layout
 

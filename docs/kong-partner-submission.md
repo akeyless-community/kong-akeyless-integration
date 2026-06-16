@@ -1,10 +1,10 @@
 # Kong Technology Partner — Akeyless vault backend listing
 
-Goal: appear on [Supported Vault backends](https://developer.konghq.com/gateway/entities/vault/#supported-vault-backends) like CyberArk Conjur, HashiCorp Vault, AWS, Azure, and GCP.
+Goal: appear on [Supported Vault backends](https://developer.konghq.com/gateway/entities/vault/#supported-vault-backends) on developer.konghq.com.
 
 ## How Kong lists vault backends
 
-Native vault backends are **built into Kong Gateway Enterprise** as Lua modules under `kong.vaults.<name>`. They are not separate Kong plugins. CyberArk Conjur (`name: conjur`) was added in Kong Gateway 3.11+ as the most recent partner vault backend.
+Native vault backends are **built into Kong Gateway Enterprise** as Lua modules under `kong.vaults.<name>`. They are not separate Kong plugins.
 
 Listing on developer.konghq.com requires:
 
@@ -18,7 +18,7 @@ Listing on developer.konghq.com requires:
 |----------|---------|
 | `vault-strategy/kong/vaults/akeyless/init.lua` | Vault `get()` implementation |
 | `vault-strategy/kong/vaults/akeyless/schema.lua` | Vault entity config schema |
-| `luarocks/kong-vault-akeyless-0.1.0-1.rockspec` | Installable package for joint testing |
+| `kong-vault-akeyless-0.1.0-1.rockspec` | Installable package for joint testing |
 | `docs/configure-akeyless-as-vault-backend.md` | Draft Kong how-to (PR to Kong docs) |
 | `examples/docker-compose.yml` | Joint QA environment |
 | `scripts/validate-vault.sh` | E2E validation script for Kong QA |
@@ -31,7 +31,7 @@ Listing on developer.konghq.com requires:
 | Example prefix | `akeyless-vault` |
 | Reference syntax | `{vault://akeyless-vault/<resource>[/<json-key>]}` |
 | License | Enterprise (`license_required = true`) |
-| Konnect | Target: Supported (match CyberArk) |
+| Konnect | Target: Supported |
 
 ## Submission checklist
 
@@ -55,7 +55,7 @@ kong/conf_loader/constants.lua   # BUNDLED_VAULTS.akeyless = true
 kong/templates/kong_defaults.lua # vault_akeyless_* kong.conf keys
 ```
 
-Reference PR pattern: CyberArk Conjur vault backend (Kong Gateway 3.11+).
+Follow the structure of existing native vault backends in Kong Gateway Enterprise (see [Kong Vaults](https://developer.konghq.com/gateway/entities/vault/)).
 
 ### Phase 3 — Kong documentation PR
 
@@ -84,21 +84,20 @@ Submit to [Kong/docs](https://github.com/Kong/docs) (or Kong's internal docs pip
 - [ ] Joint blog / integration page
 - [ ] Publish `kong-vault-akeyless` rockspec to LuaRocks (optional; deprecated once bundled)
 
-## Comparison with CyberArk (reference integration)
+## Proposed integration summary
 
-| Aspect | CyberArk Conjur | Akeyless (proposed) |
-|--------|-----------------|---------------------|
-| Vault name | `conjur` | `akeyless` |
-| Auth | `api_key` (login + api_key) | `api_key`, `kubernetes`, cloud IAM, `token` |
-| Secret fetch | Conjur REST API | `/get-secret-value` |
-| Path encoding | URL-encode `/` in references | Standard `/` path segments (folder paths) |
-| Enterprise only | Yes | Yes |
-| Added in | Kong 3.11+ | TBD |
+| Aspect | Akeyless |
+|--------|----------|
+| Vault name | `akeyless` |
+| Auth | `api_key`, `kubernetes`, cloud IAM, `token`, `universal_identity` |
+| Secret fetch | Akeyless REST API `/get-secret-value` |
+| Path model | Folder paths with optional `path_prefix` |
+| Enterprise only | Yes |
+| Target Kong version | TBD with Kong engineering |
 
 ## Contacts and links
 
 - Kong Vaults: https://developer.konghq.com/gateway/entities/vault/
 - Kong Secrets management: https://developer.konghq.com/gateway/secrets-management/
-- CyberArk how-to (template): https://developer.konghq.com/how-to/configure-cyberark-as-a-vault-backend/
 - Akeyless REST API: https://docs.akeyless.io/docs/rest-api
-- Akeyless Kong integration repo: `kong-akeyless-integration` in akeyless-community
+- Akeyless Kong integration repo: https://github.com/akeyless-community/kong-akeyless-integration

@@ -2,7 +2,7 @@
 
 Native [Kong Gateway](https://konghq.com) Secrets Management integration for [Akeyless](https://www.akeyless.io). Resolve `{vault://...}` references in `kong.conf`, declarative config, plugin fields, and certificates — without storing plaintext secrets in Kong.
 
-**Target listing:** [Kong Supported Vault backends](https://developer.konghq.com/gateway/entities/vault/#supported-vault-backends) (same category as HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager, and CyberArk Conjur).
+**Target listing:** [Kong Supported Vault backends](https://developer.konghq.com/gateway/entities/vault/#supported-vault-backends) on developer.konghq.com.
 
 > **Ready for Kong partner review.** See **[docs/YOUR-ACTION-CHECKLIST.md](docs/YOUR-ACTION-CHECKLIST.md)** for what to do next (publish repo, validate, contact Kong).
 

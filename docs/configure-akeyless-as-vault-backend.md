@@ -1,6 +1,6 @@
 # Configure Akeyless as a Kong Gateway vault backend
 
-> **Status:** Reference documentation for the [kong-akeyless-integration](https://github.com/akeyless-community/kong-akeyless-integration) vault strategy. After Kong bundles the backend, this page will appear on [developer.konghq.com](https://developer.konghq.com/gateway/entities/vault/#supported-vault-backends) alongside HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, GCP Secret Manager, and CyberArk Conjur.
+> **Status:** Reference documentation for the [kong-akeyless-integration](https://github.com/akeyless-community/kong-akeyless-integration) vault strategy. After Kong bundles the backend, this page will appear on [developer.konghq.com](https://developer.konghq.com/gateway/entities/vault/#supported-vault-backends).
 
 ## TL;DR
 
@@ -114,7 +114,7 @@ Organize Kong secrets under a dedicated prefix:
 
 ## Configuration parameters
 
-When bundled by Kong, these parameters will be available via Vault entity, `kong.conf`, and environment variables (following the [CyberArk Conjur pattern](https://developer.konghq.com/gateway/entities/vault/)):
+When bundled by Kong, these parameters will be available via Vault entity, `kong.conf`, and environment variables (see the [Kong Vaults reference](https://developer.konghq.com/gateway/entities/vault/)):
 
 | Parameter | Vault entity | kong.conf | Environment variable |
 |-----------|--------------|-----------|----------------------|

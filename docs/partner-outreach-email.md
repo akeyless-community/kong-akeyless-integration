@@ -12,12 +12,12 @@ Use after the public repo is live and tagged `v0.1.0`.
 
 Hi [Name],
 
-Akeyless has built a **native Kong Gateway Enterprise vault backend** for Secrets Management — the same integration class as CyberArk Conjur, HashiCorp Vault, AWS Secrets Manager, Azure Key Vault, and GCP Secret Manager.
+Akeyless has built a **native Kong Gateway Enterprise vault backend** for [Secrets Management](https://developer.konghq.com/gateway/secrets-management/) — a bundled `kong.vaults.akeyless` module that resolves `{vault://...}` references against the Akeyless API.
 
 We would like to begin **joint technical validation** so Akeyless can be listed on [Supported Vault backends](https://developer.konghq.com/gateway/entities/vault/#supported-vault-backends).
 
 **Submission package:** https://github.com/akeyless-community/kong-akeyless-integration  
-**Reference integration:** [CyberArk Conjur how-to](https://developer.konghq.com/how-to/configure-cyberark-as-a-vault-backend/)
+**Kong Vaults reference:** https://developer.konghq.com/gateway/entities/vault/
 
 ### What we are proposing
 
@@ -27,7 +27,7 @@ We would like to begin **joint technical validation** so Akeyless can be listed 
 | Reference syntax | `{vault://akeyless-vault/<path>[/<json-key>]}` |
 | Implementation | `kong/vaults/akeyless/init.lua` + `schema.lua` |
 | License tier | Enterprise (`license_required`) |
-| Konnect | Target: Supported (match Conjur) |
+| Konnect | Target: Supported |
 
 ### What is in the repo
 

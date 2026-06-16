@@ -70,7 +70,7 @@ Kong Gateway **Enterprise** license JSON. It is **not** an Akeyless credential.
 
 - **Kong Konnect:** Organization → License
 - **Kong trial:** [konghq.com/get-started](https://konghq.com/get-started) or your Kong account team
-- **Quickstart docs:** `export KONG_LICENSE_DATA='...'` ([Kong CyberArk tutorial](https://developer.konghq.com/how-to/configure-cyberark-as-a-vault-backend/) uses the same pattern)
+- **Quickstart docs:** `export KONG_LICENSE_DATA='...'` (see [Kong Secrets management](https://developer.konghq.com/gateway/secrets-management/))
 
 Add to `examples/.env`:
 
