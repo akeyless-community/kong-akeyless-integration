@@ -6,8 +6,10 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ENV_FILE="${ENV_FILE:-$ROOT/examples/.env}"
 
 if [[ -f "$ENV_FILE" ]]; then
+  set -a
   # shellcheck disable=SC1090
   source "$ENV_FILE"
+  set +a
 fi
 
 : "${AKEYLESS_DEMO_SECRET_PATH:?Set AKEYLESS_DEMO_SECRET_PATH in examples/.env}"

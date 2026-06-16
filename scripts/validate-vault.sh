@@ -7,8 +7,10 @@ ENV_FILE="${ENV_FILE:-$ROOT/examples/.env}"
 COMPOSE_FILE="$ROOT/examples/docker-compose.yml"
 
 if [[ -f "$ENV_FILE" ]]; then
+  set -a
   # shellcheck disable=SC1090
   source "$ENV_FILE"
+  set +a
 fi
 
 # Derive Kong vault resource from Akeyless path + optional path_prefix

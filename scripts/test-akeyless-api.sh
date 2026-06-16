@@ -6,8 +6,10 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ENV_FILE="${ENV_FILE:-$ROOT/examples/.env}"
 
 if [[ -f "$ENV_FILE" ]]; then
+  set -a
   # shellcheck disable=SC1090
   source "$ENV_FILE"
+  set +a
 fi
 
 : "${AKEYLESS_GATEWAY_URL:?Set AKEYLESS_GATEWAY_URL in examples/.env}"
@@ -44,7 +46,8 @@ http_post() {
 }
 
 echo "==> Authenticating to Akeyless at $GATEWAY"
-AUTH_BODY="$(python3 -c 'import json,os; print(json.dumps({"access-id":os.environ["AKEYLESS_ACCESS_ID"],"access-type":"api_key","access-key":os.environ["AKEYLESS_ACCESS_KEY"]}))')"
+AUTH_BODY="$(python3 -c 'import json,os; print(json.dumps({"access-id":os.environ["AKEYLESS_ACCESS_ID"],"access-type":"api_key","access-key":os.environ["AKEYLESS_ACCESS_KEY"]}))' \
+  AKEYLESS_ACCESS_ID="$AKEYLESS_ACCESS_ID" AKEYLESS_ACCESS_KEY="$AKEYLESS_ACCESS_KEY")"
 AUTH_RESP="$(http_post "$GATEWAY/auth" "$AUTH_BODY")" || {
   echo "" >&2
   echo "Auth failed. Check AKEYLESS_ACCESS_ID and AKEYLESS_ACCESS_KEY in examples/.env" >&2
