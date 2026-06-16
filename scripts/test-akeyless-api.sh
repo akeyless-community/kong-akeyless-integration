@@ -46,8 +46,7 @@ http_post() {
 }
 
 echo "==> Authenticating to Akeyless at $GATEWAY"
-AUTH_BODY="$(python3 -c 'import json,os; print(json.dumps({"access-id":os.environ["AKEYLESS_ACCESS_ID"],"access-type":"api_key","access-key":os.environ["AKEYLESS_ACCESS_KEY"]}))' \
-  AKEYLESS_ACCESS_ID="$AKEYLESS_ACCESS_ID" AKEYLESS_ACCESS_KEY="$AKEYLESS_ACCESS_KEY")"
+AUTH_BODY="$(AKEYLESS_ACCESS_ID="$AKEYLESS_ACCESS_ID" AKEYLESS_ACCESS_KEY="$AKEYLESS_ACCESS_KEY" python3 -c 'import json,os; print(json.dumps({"access-id":os.environ["AKEYLESS_ACCESS_ID"],"access-type":"api_key","access-key":os.environ["AKEYLESS_ACCESS_KEY"]}))')"
 AUTH_RESP="$(http_post "$GATEWAY/auth" "$AUTH_BODY")" || {
   echo "" >&2
   echo "Auth failed. Check AKEYLESS_ACCESS_ID and AKEYLESS_ACCESS_KEY in examples/.env" >&2
@@ -56,10 +55,10 @@ AUTH_RESP="$(http_post "$GATEWAY/auth" "$AUTH_BODY")" || {
 }
 
 TOKEN="$(printf '%s' "$AUTH_RESP" | python3 -c 'import json,sys; print(json.load(sys.stdin)["token"])')"
+export TOKEN
 
 echo "==> Fetching secret $SECRET_PATH"
-SECRET_BODY="$(python3 -c 'import json,os; print(json.dumps({"token":os.environ["TOKEN"],"names":[os.environ["SECRET_PATH"]]}))' \
-  TOKEN="$TOKEN" SECRET_PATH="$SECRET_PATH")"
+SECRET_BODY="$(TOKEN="$TOKEN" SECRET_PATH="$SECRET_PATH" python3 -c 'import json,os; print(json.dumps({"token":os.environ["TOKEN"],"names":[os.environ["SECRET_PATH"]]}))')"
 SECRET_RESP="$(http_post "$GATEWAY/get-secret-value" "$SECRET_BODY")" || {
   echo "" >&2
   echo "Secret fetch failed for: $SECRET_PATH" >&2
@@ -74,7 +73,7 @@ SECRET_RESP="$(http_post "$GATEWAY/get-secret-value" "$SECRET_BODY")" || {
   exit 1
 }
 
-VALUE="$(printf '%s' "$SECRET_RESP" | python3 -c "
+VALUE="$(printf '%s' "$SECRET_RESP" | SECRET_PATH="$SECRET_PATH" python3 -c "
 import json, sys, os
 path = os.environ['SECRET_PATH']
 data = json.load(sys.stdin)
@@ -86,7 +85,7 @@ if val is None:
 if isinstance(val, dict) and 'value' in val:
     val = val['value']
 print(val)
-" SECRET_PATH="$SECRET_PATH")"
+")"
 
 if [[ -z "$VALUE" ]]; then
   echo "ERROR: empty secret value for $SECRET_PATH" >&2

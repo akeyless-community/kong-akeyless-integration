@@ -9,17 +9,13 @@ vaults:
       auth_method: api_key
       access_id: "${{ env "DECK_AKEYLESS_ACCESS_ID" }}"
       access_key: "${{ env "DECK_AKEYLESS_ACCESS_KEY" }}"
-      path_prefix: "/kong"
+      path_prefix: "${{ env "DECK_AKEYLESS_PATH_PREFIX" }}"
       ttl: 60
       neg_ttl: 10
       resurrect_ttl: 30
 
-# Example: reference a static secret stored at /kong/customer/acme/api-key
-#   {vault://akeyless-vault/customer/acme/api-key}
-#
-# Example: JSON secret at /kong/pg with {"username":"john","password":"doe"}
-#   {vault://akeyless-vault/pg/username}
-#   {vault://akeyless-vault/pg/password}
+# Example: secret at /demo/dotnet-integration/kong with path_prefix /demo
+#   {vault://akeyless-vault/dotnet-integration/kong}
 
 services:
   - name: demo-upstream
